@@ -1,9 +1,8 @@
 {
-	"name": "swiftbrief-cli",
+	"name": "@swiftbriefapp/cli",
 	"version": "1.0.0",
 	"description": "Swiftbrief's official CLI package.",
 	"author": "Arrigo Lupori",
-	"private": true,
 	"main": "bin/generate-react",
 	"bin": {
 		"generate-react": "bin/generate-react"
