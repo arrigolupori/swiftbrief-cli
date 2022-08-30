@@ -13,4 +13,4 @@ describe('<TemplateName />', () => {
     expect(component.length).toBe(1);
   });
 });
-`;
+`

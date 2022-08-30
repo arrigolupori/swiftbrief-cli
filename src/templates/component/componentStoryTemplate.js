@@ -10,4 +10,4 @@ export const Default = () => <TemplateName />;
 Default.story = {
   name: 'default',
 };
-`;
+`

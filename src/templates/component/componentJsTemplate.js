@@ -13,4 +13,4 @@ TemplateName.propTypes = {};
 TemplateName.defaultProps = {};
 
 export default TemplateName;
-`;
+`

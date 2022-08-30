@@ -9,4 +9,4 @@ const TemplateName = (props: JSX.IntrinsicAttributes & { children?: React.ReactN
 );
 
 export default TemplateName;
-`;
+`

@@ -1,7 +1,7 @@
-const cli = require('./cli');
+const cli = require('./cli')
 
 describe('cli', () => {
-  it('should be defined.', () => {
-    expect(cli).toBeDefined();
-  });
-});
+	it('should be defined.', () => {
+		expect(cli).toBeDefined()
+	})
+})

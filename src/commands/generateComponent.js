@@ -1,46 +1,57 @@
 const {
-  generateComponent,
-  getComponentByType,
-  getCorrespondingComponentFileTypes,
-} = require('../utils/generateComponentUtils');
+	generateComponent,
+	getComponentByType,
+	getCorrespondingComponentFileTypes
+} = require('../utils/generateComponentUtils')
 
 function initGenerateComponentCommand(args, cliConfigFile, program) {
-  const selectedComponentType = getComponentByType(args, cliConfigFile);
+	const selectedComponentType = getComponentByType(args, cliConfigFile)
 
-  const componentCommand = program
-    .command('component [names...]')
-    .alias('c')
+	const componentCommand = program
+		.command('component [names...]')
+		.alias('c')
 
-    // Static component command option defaults.
+		// Static component command option defaults.
 
-    .option('-p, --path <path>', 'The path where the component will get generated in.', selectedComponentType.path)
-    .option(
-      '--type <type>',
-      'You can pass a component type that you have configured in your GRC config file.',
-      'default'
-    );
+		.option(
+			'-p, --path <path>',
+			'The path where the component will get generated in.',
+			selectedComponentType.path
+		)
+		.option(
+			'--type <type>',
+			'You can pass a component type that you have configured in your GRC config file.',
+			'default'
+		)
 
-  // Dynamic component command option defaults.
+	// Dynamic component command option defaults.
 
-  const dynamicOptions = getCorrespondingComponentFileTypes(selectedComponentType);
+	const dynamicOptions = getCorrespondingComponentFileTypes(
+		selectedComponentType
+	)
 
-  dynamicOptions.forEach((dynamicOption) => {
-    componentCommand.option(
-      `--${dynamicOption} <${dynamicOption}>`,
-      `With corresponding ${dynamicOption.split('with')[1]} file.`,
-      selectedComponentType[dynamicOption]
-    );
-  });
+	dynamicOptions.forEach((dynamicOption) => {
+		componentCommand.option(
+			`--${dynamicOption} <${dynamicOption}>`,
+			`With corresponding ${dynamicOption.split('with')[1]} file.`,
+			selectedComponentType[dynamicOption]
+		)
+	})
 
-  componentCommand.option('--dry-run', 'Show what will be generated without writing to disk');
+	componentCommand.option(
+		'--dry-run',
+		'Show what will be generated without writing to disk'
+	)
 
-  // Component command action.
+	// Component command action.
 
-  componentCommand.action((componentNames, cmd) =>
-    componentNames.forEach((componentName) => generateComponent(componentName, cmd, cliConfigFile))
-  );
+	componentCommand.action((componentNames, cmd) =>
+		componentNames.forEach((componentName) =>
+			generateComponent(componentName, cmd, cliConfigFile)
+		)
+	)
 }
 
 module.exports = {
-  initGenerateComponentCommand,
-};
+	initGenerateComponentCommand
+}

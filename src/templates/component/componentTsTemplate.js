@@ -10,4 +10,4 @@ const TemplateName: FC<TemplateNameProps> = () => (
 );
 
 export default TemplateName;
-`;
+`
