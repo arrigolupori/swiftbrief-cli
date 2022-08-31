@@ -1,15 +1,12 @@
 {
 	"name": "@swiftbrief/cli",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Swiftbrief's official CLI package.",
 	"author": "Arrigo Lupori",
-	"main": "bin/generate-react",
+	"main": "bin/generate",
 	"bin": {
-		"generate-react": "bin/generate-react"
+		"generate": "bin/generate"
 	},
-	"publishConfig": {
-		"registry":"https://npm.pkg.github.com"
-	  },
 	"files": [
 		"bin/",
 		"src/",
