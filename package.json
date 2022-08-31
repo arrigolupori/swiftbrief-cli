@@ -1,5 +1,5 @@
 {
-	"name": "@swiftbrief/cli",
+	"name": "@swiftbriefapp/cli",
 	"version": "1.0.1",
 	"description": "Swiftbrief's official CLI package.",
 	"author": "Arrigo Lupori",
