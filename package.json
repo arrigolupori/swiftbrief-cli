@@ -7,6 +7,9 @@
 	"bin": {
 		"generate-react": "bin/generate-react"
 	},
+	"publishConfig": {
+		"registry":"https://npm.pkg.github.com"
+	  },
 	"files": [
 		"bin/",
 		"src/",

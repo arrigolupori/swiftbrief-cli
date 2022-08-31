@@ -1,3 +1,4 @@
+*(Fork of [Generate React CLI](https://github.com/arminbro/generate-react-cli/))*
 # Swiftbrief CLI
 
 ![Swiftbrief logo](https://swiftbrief-cms.nyc3.digitaloceanspaces.com/941f6eb99c5298036be645af1111c3ab.png?updated_at=2022-08-19T16:50:47.645Z)
