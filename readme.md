@@ -97,14 +97,16 @@ This is where you should expect files to appear:
 
 ```
 |-- /src
-    |-- /components
-        |-- /Box
-            |-- index.tsx
-            |-- Box.cy.tsx
-    |-- /controllers
-        |-- /brief
-            |-- index.ts
-            |-- brief.jest.ts
+    |-- /ui
+        |-- /components
+            |-- /Box
+                |-- index.tsx
+                |-- Box.cy.tsx
+    |-- /server
+        |-- /controllers
+            |-- /brief
+                |-- index.ts
+                |-- brief.jest.ts
     |-- /pages
         |-- /api
             |-- /brief
