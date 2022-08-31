@@ -3,131 +3,76 @@
 
 ![Swiftbrief logo](https://swiftbrief-cms.nyc3.digitaloceanspaces.com/941f6eb99c5298036be645af1111c3ab.png?updated_at=2022-08-19T16:50:47.645Z)
 
-You can run it using npx like this:
+> **Warning:** Even though the package is public, the way it is structured is *only* meant to work within Swiftbrief's v1.3 codebase. If you landed on this page and you're not part of Swiftbrief, this package isn't going to help you. It's a simple fork of [Generate React CLI](https://github.com/arminbro/generate-react-cli/) that adds a few rules and constraints.
+
+Install the CLI as a developer dependency:
 
 ```
-  npx swiftbrief-cli component Box
+  yarn add -D @swiftbriefapp/cli
 ```
 
-## Config File
+## The `generate` CLI
 
-When you run the CLI within your project the first time, it will ask you a series of questions to customize the cli for your project needs (this will create a "swiftbrief-cli.json" config file).
-
-#### Example of the **swiftbrief-cli.json** config file:
-
-```json
-{
-  "usesTypeScript": false,
-  "usesCssModule": true,
-  "cssPreprocessor": "scss",
-  "testLibrary": "Testing Library",
-  "component": {
-    "default": {
-      "path": "src/components",
-      "withLazy": false,
-      "withStory": false,
-      "withStyle": true,
-      "withTest": true
-    }
-  }
-}
-```
-
-## Generate Components
+`yarn generate` is the basis of the Swiftbrief CLI:
 
 ```
-  npx swiftbrief-cli component Box
+  yarn generate <command> <name> <option>
 ```
 
-This command will create a folder with your component name within your default (e.g. **src/components**) directory, and its corresponding files.
+With it, you can use various commands to generate files.
 
-#### Example of the component files structure:
+### Commands
 
-```
-|-- /src
-    |-- /components
-        |-- /Box
-            |-- Box.js
-            |-- Box.css
-            |-- Box.test.js
-```
-
-### Options
-
-You can also override some of the CLI config rules using one-off commands. For example, let's say you have set **withTest** to be `true` in the `component.default` property. You can override it like this:
-
-```
-  npx swiftbrief-cli component Box --withTest=false
-```
-
-Or vice versa, if you have set **withTest** to be `false` you can do this:
-
-```
-  npx swiftbrief-cli component Box --withTest=true
-```
-
-Otherwise, if you don't pass any options, it will just use the default values that you have set in the GRC config file under `component.default`.
+There are 3 main commands for the Swiftbrief CLI:
 
 <table>
   <tr align="left">
-    <th>Options</th>
+    <th>Command</th>
     <th>Description</th>
-    <th>Value Type</th>
-    <th>Default Value</th>
+  </tr>
+  <tr>
+    <td width="20%"><b>component|cm</b></td>
+    <td width="60%">
+      Generate a React component under `/src/ui/components`.  
+    </td>
+  </tr>
+
+  <tr>
+    <td width="20%"><b>controller|cn</b></td>
+    <td width="60%">
+      Generate a Next controller under `/src/server/controllers`.
+    </td>
+  </tr>
+
+  <tr>
+    <td width="20%"><b>endpoint|en</b></td>
+    <td width="60%">
+      Generate an API endpoint under `/src/pages/api`.
+    </td>
+  </tr>
+
+</table>
+
+### Options
+
+Some of the options available are:
+
+<table>
+  <tr align="left">
+    <th>Option</th>
+    <th>Description</th>
+    <th>Value type</th>
+    <th>Default value</th>
   </tr>
   <tr>
     <td width="20%"><b>--path</b></td>
     <td width="60%">
-      Value of the path where you want the component to be generated in (e.g. <b>src/components</b>).  
+      Name of the sub-path where you want the component to be generated in (e.g. `modals`). This will be added at the end of the base directories shown in the commands table (e.g. `/src/ui/components/modals`). If the directory does not exist, it will be created automatically.
     </td>
     <td width="20%">String</td>
     <td width="20%"><code>component.default.path<code></td>
   </tr>
 
-  <tr>
-    <td width="20%"><b>--type</b></td>
-    <td width="60%">
-      You can pass a custom component type that you have configured in the GRC config file that has its own set of component config rules. Read more about <a href="#custom-component-types">custom component types</a>.
-    </td>
-    <td width="20%">String</td>
-    <td width="20%"><code>component.default<code></td>
-  </tr>
-
-  <tr>
-    <td width="20%"><b>--withLazy</b></td>
-    <td width="60%">
-      Creates a corresponding lazy file (a file that lazy-loads your component out of the box and enables <a href="https://reactjs.org/docs/code-splitting.html#code-splitting">code splitting</a>) with this component.      
-    </td>
-    <td width="20%">Boolean</td>
-    <td width="20%"><code>component.default.withLazy<code></td>
-  </tr>
-
-  <tr>
-    <td width="20%"><b>--withStory</b></td>
-    <td width="60%">
-      Creates a corresponding (<a href="https://storybook.js.org">storybook</a>) story file with this component.      
-    </td>
-    <td width="20%">Boolean</td>
-    <td width="20%"><code>component.default.withStory<code></td>
-  </tr>
-
-  <tr>
-    <td width="20%"><b>--withStyle</b></td>
-    <td width="60%">
-      Creates a corresponding stylesheet file with this component.    
-    </td>
-    <td width="20%">Boolean</td>
-    <td width="20%"><code>component.default.withStyle<code></td>
-  </tr>
-
-  <tr>
-    <td width="20%"><b>--withTest</b></td>
-    <td width="60%">
-      Creates a corresponding test file with this component.      
-    </td>
-    <td width="20%">Boolean</td>
-    <td width="20%"><code>component.default.withTest<code></td>
-  </tr>
   <tr>
     <td width="20%"><b>--dry-run</b></td>
     <td width="60%">
@@ -138,213 +83,36 @@ Otherwise, if you don't pass any options, it will just use the default values th
   </tr>
 </table>
 
-### Custom component types:
+The commands and options above are subject to change, communicated internally.
 
-By default, the CLI will use the `component.default` configuration rules when running the component command out of the box.
+### File structure
 
-What if you wanted to generate other types of components that have their own set of config rules (e.g., **page** or **layout**)?
+Swiftbrief has a set file structure.
 
-You can do so by extending the **swiftbrief-cli.json** config file like this.
+There is no need for any configuration files.
 
-```json
-{
-  "usesTypeScript": false,
-  "usesCssModule": true,
-  "cssPreprocessor": "scss",
-  "testLibrary": "Testing Library",
-  "component": {
-    "default": {
-      "path": "src/components",
-      "withLazy": false,
-      "withStory": false,
-      "withStyle": true,
-      "withTest": true
-    },
-    "page": {
-      "path": "src/pages",
-      "withLazy": true,
-      "withStory": false,
-      "withStyle": true,
-      "withTest": true
-    },
-    "layout": {
-      "path": "src/layout",
-      "withLazy": false,
-      "withStory": false,
-      "withStyle": false,
-      "withTest": true
-    }
-  }
-}
-```
+All file templates are set directly in the package itself.
 
-Now you can generate a component with your custom component types like this:
+This is where you should expect files to appear:
 
 ```
-  npx swiftbrief-cli component HomePage --type=page
+|-- /src
+    |-- /components
+        |-- /Box
+            |-- index.tsx
+            |-- Box.cy.tsx
+    |-- /controllers
+        |-- /brief
+            |-- index.ts
+            |-- brief.jest.ts
+    |-- /pages
+        |-- /api
+            |-- /brief
+                |-- index.ts
+                |-- [id].ts
 ```
 
-```
-  npx swiftbrief-cli component BoxLayout --type=layout
-```
-
-You can also pass the same [options](#options) to your custom component types as you would for the default component type.
-
-### Custom component templates
-
-You can also create your own custom templates that the CLI can use instead of the built-in templates that come with it. We hope this will provide more flexibility for your components that you want to generate.
-
-There is an optional `customTemplates` object that you can pass to the `component.default` or any of your custom component types within your **swiftbrief-cli.json** config file.
-
-#### Example of the `customTemplates` object:
-
-```json
-"customTemplates": {
-  "component": "templates/TemplateName.js",
-  "lazy":  "templates/TemplateName.lazy.js",
-  "story":  "templates/TemplateName.story.js",
-  "style": "templates/TemplateName.style.scss",
-  "test":  "templates/TemplateName.test.js"
-},
-```
-
-The keys represent the type of file, and the values are the paths that point to where your custom template lives in your project/system. Please note the `TemplateName` keyword in the template filename. the CLI will use this keyword and replace it with your component name (in whichever format you typed the component name in the command) as the filename.
-
-#### Example of using the `customTemplates` object within your swiftbrief-cli.json config file:
-
-```json
-{
-  "usesTypeScript": false,
-  "usesCssModule": true,
-  "cssPreprocessor": "scss",
-  "testLibrary": "Testing Library",
-  "component": {
-    "default": {
-      "customTemplates": {
-        "component": "templates/component/TemplateName.js",
-        "style": "templates/component/TemplateName.style.scss",
-        "test": "templates/component/TemplateName.test.js"
-      },
-      "path": "src/components",
-      "withStyle": true,
-      "withTest": true,
-      "withStory": true,
-      "withLazy": false
-    },
-    "page": {
-      "customTemplates": {
-        "test": "templates/page/TemplateName.test.js"
-      },
-      "path": "src/pages",
-      "withLazy": true,
-      "withStory": false,
-      "withStyle": true,
-      "withTest": true
-    }
-  }
-}
-```
-
-Notice in the `page.customTemplates` that we only specified the `test` custom template type. That's because all the custom template types are optional. If you don't set the other types, the CLI will default to using the built-in templates it comes with.
-
-#### Example of a custom component template file:
-
-```jsx
-// templates/component/TemplateName.js
-
-import React from 'react';
-import styles from './TemplateName.module.css';
-
-const TemplateName = () => (
-  <div className={styles.TemplateName} data-testid="TemplateName">
-    <h1>TemplateName component</h1>
-  </div>
-);
-
-export default TemplateName;
-```
-
-**Important** - You can also use the following keywords within your custom templates to format the component name in your templates accordingly:
-
-| Keyword         | Replacement                                                                                    |
-| --------------- | ---------------------------------------------------------------------------------------------- |
-| `templatename`  | component name in raw case (whichever format the user typed the component name in the command) |
-| `TemplateName`  | component name in PascalCase                                                                   |
-| `templateName`  | component name in camelCase                                                                    |
-| `template-name` | component name in kebab-case                                                                   |
-| `template_name` | component name in snake_case                                                                   |
-| `TEMPLATE_NAME` | component name in uppercase SNAKE_CASE                                                         |
-
-#### Example of a custom test template file:
-
-```jsx
-// templates/component/TemplateName.test.js
-
-import React from 'react';
-import ReactDOM from 'react-dom';
-import TemplateName from './TemplateName';
-
-it('It should mount', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<TemplateName />, div);
-  ReactDOM.unmountComponentAtNode(div);
-});
-```
-
-### Custom component files
-
-the CLI comes with corresponding built-in files for a given component if you need them (i.e., `withStyle`, `withTest`, `withStory`, and `withLazy`).
-
-What if you wanted to add custom files of your own?
-
-For example, let's say you wanted to add an `index.js` file for each component, so you don't have to add the additional component name with each import (i.e., `import Box from './components/Box'` instead of `import Box from './components/Box/Box'`).
-
-Or maybe you need an additional style file for your component stories.
-
-You can do so by editing your **swiftbrief-cli.json** config file like so.
-
-```json
-{
-  "usesTypeScript": false,
-  "usesCssModule": false,
-  "cssPreprocessor": "css",
-  "testLibrary": "Testing Library",
-  "component": {
-    "default": {
-      "path": "src/components",
-      "withStyle": true,
-      "withTest": true,
-      "withStory": true,
-      "withLazy": false,
-      "withIndex": true,
-      "withStoryStyle": true,
-      "customTemplates": {
-        "index": "templates/default/index.js",
-        "storyStyle": "templates/default/TemplateName.stories.css"
-      }
-    }
-  }
-}
-```
-
-```jsx
-// templates/default/index.js
-
-export { default } from './TemplateName';
-```
-
-```css
-/* templates/default/TemplateName.stories.css */
-
-.TemplateName {
-}
-```
-
-In this case, we added a `withIndex` & `withStoryStyle` to the `component.default`. Note: You can add custom files to any of your custom component types.
-
-You should also see that we added `index` and `storyStyle` to our `customTemplates` object. That's because custom files require custom templates. Otherwise, you will get an error when you generate a component.
-
-Also, we used the `TemplateName` keyword for the `storyStyle` custom file. the CLI will generate this corresponding file and replace `TemplateName` with the component name.
+This structure must not be changed to preserve code reusability.
 
 ## License
 
