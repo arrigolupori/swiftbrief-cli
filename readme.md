@@ -72,15 +72,6 @@ Some of the options available are:
     <td width="20%">String</td>
     <td width="20%"><code>component.default.path<code></td>
   </tr>
-
-  <tr>
-    <td width="20%"><b>--dry-run</b></td>
-    <td width="60%">
-      Show what will be generated without writing to disk
-    </td>
-    <td width="20%">Boolean</td>
-    <td width="20%"><code>false<code></td>
-  </tr>
 </table>
 
 The commands and options above are subject to change, communicated internally.

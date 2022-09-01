@@ -1,13 +1,16 @@
-module.exports = `import React, { FC } from 'react';
-import styles from './TemplateName.module.css';
+module.exports = `import { Box, BoxProps, forwardRef } from '@chakra-ui/react'
 
-interface TemplateNameProps {}
+export interface TemplateNameProps extends BoxProps {
+	name: string
+}
 
-const TemplateName: FC<TemplateNameProps> = () => (
-  <div className={styles.TemplateName} data-testid="TemplateName">
-    TemplateName Component
-  </div>
-);
-
-export default TemplateName;
-`
+export const TemplateName = forwardRef<TemplateNameProps, 'div'>(
+	(props, ref): any => {
+		console.log('TemplateName')
+		return (
+			<Box data-testid='TemplateName' ref={ref}>
+				{props.name}
+			</Box>
+		)
+	}
+)`

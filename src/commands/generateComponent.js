@@ -16,7 +16,7 @@ function initGenerateComponentCommand(args, cliConfigFile, program) {
 		.option(
 			'-p, --path <path>',
 			'The path where the component will get generated in.',
-			`src/ui/components/${selectedComponentType.path}`
+			`${selectedComponentType.path}`
 		)
 		.option(
 			'--type <type>',
@@ -37,11 +37,6 @@ function initGenerateComponentCommand(args, cliConfigFile, program) {
 			selectedComponentType[dynamicOption]
 		)
 	})
-
-	componentCommand.option(
-		'--dry-run',
-		'Show what will be generated without writing to disk'
-	)
 
 	// Component command action.
 

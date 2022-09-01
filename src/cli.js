@@ -16,10 +16,6 @@ module.exports = async function cli(args) {
 			testLibrary: 'None',
 			component: {
 				default: {
-					customTemplates: {
-						component: 'src/config/templates/component/index.tsx',
-						test: 'src/config/templates/component/TemplateName.cy.tsx'
-					},
 					path: 'cli',
 					withStyle: false,
 					withTest: true,
