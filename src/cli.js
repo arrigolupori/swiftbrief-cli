@@ -20,7 +20,7 @@ module.exports = async function cli(args) {
 						component: 'src/config/templates/component/index.tsx',
 						test: 'src/config/templates/component/TemplateName.cy.tsx'
 					},
-					path: 'src/ui/components',
+					path: 'cli',
 					withStyle: false,
 					withTest: true,
 					withStory: false,

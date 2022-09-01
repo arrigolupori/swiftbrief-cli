@@ -16,7 +16,7 @@ function initGenerateComponentCommand(args, cliConfigFile, program) {
 		.option(
 			'-p, --path <path>',
 			'The path where the component will get generated in.',
-			selectedComponentType.path
+			`src/ui/components/${selectedComponentType.path}`
 		)
 		.option(
 			'--type <type>',
