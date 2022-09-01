@@ -6,9 +6,6 @@ const { existsSync, outputFileSync } = require('fs-extra')
 const componentJsTemplate = require('../templates/component/componentJsTemplate')
 const componentTsTemplate = require('../templates/component/componentTsTemplate')
 const componentCssTemplate = require('../templates/component/componentCssTemplate')
-const componentLazyTemplate = require('../templates/component/componentLazyTemplate')
-const componentTsLazyTemplate = require('../templates/component/componentTsLazyTemplate')
-const componentStoryTemplate = require('../templates/component/componentStoryTemplate')
 const componentTestDefaultTemplate = require('../templates/component/componentTestDefaultTemplate')
 
 function getComponentByType(args, cliConfigFile) {
@@ -89,74 +86,6 @@ function componentTestTemplateGenerator({ cliConfigFile, cmd, componentName }) {
 	}
 }
 
-function componentStoryTemplateGenerator({
-	cliConfigFile,
-	cmd,
-	componentName
-}) {
-	const { usesTypeScript } = cliConfigFile
-	const { customTemplates } = cliConfigFile.component[cmd.type]
-	let template = null
-	let filename = null
-
-	// Check for a custom story template.
-
-	if (customTemplates && customTemplates.story) {
-		// --- Load and use the custom story template
-
-		const { template: customTemplate, filename: customTemplateFilename } =
-			getCustomTemplate(componentName, customTemplates.story)
-
-		template = customTemplate
-		filename = customTemplateFilename
-	} else {
-		// --- Else use GRC built-in story template
-
-		template = componentStoryTemplate
-		filename = usesTypeScript
-			? `${componentName}.stories.tsx`
-			: `${componentName}.stories.js`
-	}
-
-	return {
-		componentPath: `${cmd.path}/${componentName}/${filename}`,
-		filename,
-		template
-	}
-}
-
-function componentLazyTemplateGenerator({ cmd, componentName, cliConfigFile }) {
-	const { usesTypeScript } = cliConfigFile
-	const { customTemplates } = cliConfigFile.component[cmd.type]
-	let template = null
-	let filename = null
-
-	// Check for a custom lazy template.
-
-	if (customTemplates && customTemplates.lazy) {
-		// --- Load and use the custom lazy template
-
-		const { template: customTemplate, filename: customTemplateFilename } =
-			getCustomTemplate(componentName, customTemplates.lazy)
-
-		template = customTemplate
-		filename = customTemplateFilename
-	} else {
-		// --- Else use GRC built-in lazy template
-
-		template = usesTypeScript ? componentTsLazyTemplate : componentLazyTemplate
-		filename = usesTypeScript
-			? `${componentName}.lazy.tsx`
-			: `${componentName}.lazy.js`
-	}
-
-	return {
-		componentPath: `${cmd.path}/${componentName}/${filename}`,
-		filename,
-		template
-	}
-}
-
 function customFileTemplateGenerator({
 	componentName,
 	cmd,
@@ -204,8 +133,6 @@ const buildInComponentFileTypes = {
 	COMPONENT: 'component',
 	STYLE: 'withStyle',
 	TEST: 'withTest',
-	STORY: 'withStory',
-	LAZY: 'withLazy'
 }
 
 // --- Generate component template map
@@ -213,9 +140,7 @@ const buildInComponentFileTypes = {
 const componentTemplateGeneratorMap = {
 	[buildInComponentFileTypes.COMPONENT]: componentTemplateGenerator,
 	[buildInComponentFileTypes.STYLE]: componentStyleTemplateGenerator,
-	[buildInComponentFileTypes.TEST]: componentTestTemplateGenerator,
-	[buildInComponentFileTypes.STORY]: componentStoryTemplateGenerator,
-	[buildInComponentFileTypes.LAZY]: componentLazyTemplateGenerator
+	[buildInComponentFileTypes.TEST]: componentTestTemplateGenerator
 }
 
 function generateComponent(componentName, cmd, cliConfigFile) {

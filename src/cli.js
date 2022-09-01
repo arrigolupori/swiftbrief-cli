@@ -11,16 +11,12 @@ module.exports = async function cli(args) {
 		// Config file is hardcoded for now
 		{
 			usesTypeScript: true,
-			usesCssModule: false,
 			cssPreprocessor: 'scss',
-			testLibrary: 'None',
 			component: {
 				default: {
 					path: 'cli',
 					withStyle: false,
-					withTest: true,
-					withStory: false,
-					withLazy: false
+					withTest: true
 				}
 			}
 		},
