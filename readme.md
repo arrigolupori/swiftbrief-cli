@@ -107,6 +107,130 @@ This is where you should expect files to appear:
 
 This structure must not be changed to preserve code reusability.
 
+## File templates
+
+You can find all file templates under `src/templates`.
+
+Currently, the Swiftbrief CLI features 3 generators:
+
+1. Components
+2. Controllers
+3. Endpoints
+
+Each template features a unique folder structure.
+
+**Important:**
+
+Templates shouldn't be updated often.
+
+If they are updated, changes should be communicated internally and reflected on this README.
+
+### The `component` template
+
+Components are the main unit of Swiftbrief's UI.
+
+They are built using React, and are tested with [Cypress Component Testing](https://docs.cypress.io/guides/component-testing/writing-your-first-component-test).
+
+You can generate a new component folder like this:
+
+`yarn generate cm MyTable --path "tables"`
+
+This will generate a `MyTable` folder with 2 files:
+
+1. index.tsx
+2. MyTable.cy.tsx
+
+The component itself lives in the `index.tsx` file, which is named "index" as a self-reference.
+
+Here's what each file will look like once generated:
+
+#### The `index.tsx` file
+
+Swiftbrief uses [Chakra UI](https://chakra-ui.com/) as its frontend UI library.
+
+Because of this, our template React files include a few related imports:
+
+```
+import { Box, BoxProps, forwardRef } from '@chakra-ui/react'
+export interface MyTableProps extends BoxProps {
+	name: string
+}
+export const MyTable = forwardRef<MyTableProps, 'div'>(
+	(props, ref): any => {
+		console.log('MyTable')
+		return (
+			<Box data-testid='MyTable' ref={ref}>
+				{props.name}
+			</Box>
+		)
+	}
+)
+```
+
+You will notice a few things:
+
+- A `MyTableProps` interface is defined extending a `BoxProps` type from Chakra UI
+- A `forwardRef` function wraps the component, taking `MyTableProps` as its type and passing `props` and `ref` as arguments
+- The `data-testid='MyTable'` and `ref={ref}` attributes are set up at the highest level `<Box>` component
+- Props are passed to the component using a global `props` object rather than directly
+
+All of these peculiarities are by design.
+
+**»** The interface gives us an easy way to extend the component's props based on Chakra UI's types.
+
+There are many types of Chakra UI props, not just `BoxProps`.
+
+You can see a full list of components [here](https://chakra-ui.com/docs/components).
+
+**»** The `forwardRef` makes the specified Chakra props available to the new custom component.
+
+For example:
+
+<MyTable name='MyTable' marginTop='2em' />
+
+See how `marginTop` isn't specified anywhere in our interface.
+
+But it's part of [Chakra UI's BoxProps type](https://chakra-ui.com/docs/components/box), allowing our custom components flexibility over styling and state.
+
+**»** The `data-testid='MyTable'` allows us to reference our component in tests.
+
+This is useful if there aren't any easy ways to get a component using default assertions (rare).
+
+**»** The `ref={ref)` tells the `forwardRef` function on which component to spread the props that we passed as a type (`<MyTableProps, "div">`).
+
+This matters as because we can pass `ref` to a lower-level component rather than the highest one if we want to enforce some higher-level styling or state, disallowing the use of any additional props at the highest level for that specific custom component.
+
+**»** The `props` object cleans the code up rather than duplicating our interface.
+
+Although typing `props` every time can be tedious, we find it a better alternative to typing interface definitions and props twice.
+
+#### The `MyTable.cy.tsx` file
+
+Cypress uses Mocha under the hood, not Jest.
+
+However, it uses its own [assertion library](https://docs.cypress.io/guides/references/assertions#Chai) on top of Mocha.
+
+It also doesn't require any imports to function correctly (as long as the file is named *.cy.*):
+
+```
+import { MyTable } from '.'
+
+describe('MyTable', () =>
+	it('mounts', () => cy.mount(<MyTable name='MyTable' />)))
+```
+
+This is the simplest test possible.
+
+It checks that the component is mounting correctly.
+
+### The `controller` template
+
+...
+
+### The `endpoint` template
+
+...
+
 ## License
 
 Generate React CLI is open source software [licensed as MIT](https://github.com/arminbro/generate-react-cli/blob/master/LICENSE).
