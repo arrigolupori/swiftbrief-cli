@@ -202,7 +202,9 @@ This matters because we can pass `ref` to a lower-level component if we want to 
 
 **»** The `props` object cleans the code up rather than duplicating our interface.
 
-Although typing `props` every time can be tedious, we find it a better alternative to repeating types and props definitions.
+Typing `props` every time can be tedious. 
+
+But we find it a better alternative to repeating types and props definitions.
 
 #### The `MyTable.cy.tsx` file
 
