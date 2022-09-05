@@ -148,7 +148,7 @@ Here's what each file will look like once generated:
 
 Swiftbrief uses [Chakra UI](https://chakra-ui.com/) as its frontend UI library.
 
-Because of this, our template React files include a few related imports:
+Because of this, our templated React files include a few related imports:
 
 ```
 import { Box, BoxProps, forwardRef } from '@chakra-ui/react'
@@ -169,10 +169,10 @@ export const MyTable = forwardRef<MyTableProps, 'div'>(
 
 You will notice a few things:
 
-- A `MyTableProps` interface is defined extending a `BoxProps` type from Chakra UI
-- A `forwardRef` function wraps the component, taking `MyTableProps` as its type and passing `props` and `ref` as arguments
-- The `data-testid='MyTable'` and `ref={ref}` attributes are set up at the highest level `<Box>` component
-- Props are passed to the component using a global `props` object rather than directly
+- A `MyTableProps` interface is defined, extending a `BoxProps` type from Chakra UI.
+- `forwardRef` wraps the component, taking `MyTableProps` as its type and `props` and `ref` as arguments.
+- The `data-testid='MyTable'` and `ref={ref}` attributes are set up at the highest level `<Box>` component.
+- Props are passed to the component using a global `props` object rather than directly.
 
 All of these peculiarities are by design.
 
@@ -186,7 +186,7 @@ You can see a full list of components [here](https://chakra-ui.com/docs/componen
 
 For example:
 
-<MyTable name='MyTable' marginTop='2em' />
+`<MyTable name='MyTable' marginTop='2em' />`
 
 See how `marginTop` isn't specified anywhere in our interface.
 
@@ -196,13 +196,13 @@ But it's part of [Chakra UI's BoxProps type](https://chakra-ui.com/docs/componen
 
 This is useful if there aren't any easy ways to get a component using default assertions (rare).
 
-**»** The `ref={ref)` tells the `forwardRef` function on which component to spread the props that we passed as a type (`<MyTableProps, "div">`).
+**»** The `ref={ref)` tells the `forwardRef` function on which component to spread the props.
 
-This matters as because we can pass `ref` to a lower-level component rather than the highest one if we want to enforce some higher-level styling or state, disallowing the use of any additional props at the highest level for that specific custom component.
+This matters because we can pass `ref` to a lower-level component if we want to enforce higher-level styling or state, disallowing the use of any additional props at the highest level for that specific custom component.
 
 **»** The `props` object cleans the code up rather than duplicating our interface.
 
-Although typing `props` every time can be tedious, we find it a better alternative to typing interface definitions and props twice.
+Although typing `props` every time can be tedious, we find it a better alternative to repeating types and props definitions.
 
 #### The `MyTable.cy.tsx` file
 
