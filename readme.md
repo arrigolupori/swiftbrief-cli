@@ -175,12 +175,16 @@ You will notice a few things:
 - Props are passed to the component using a global `props` object rather than directly.
 
 All of these peculiarities are by design.
+	
+##### TYPE SAFETY
 
 **»** The interface gives us an easy way to extend the component's props based on Chakra UI's types.
 
 There are many types of Chakra UI props, not just `BoxProps`.
 
 You can see a full list of components [here](https://chakra-ui.com/docs/components).
+	
+##### PROP FORWARDING
 
 **»** The `forwardRef` makes the specified Chakra props available to the new custom component.
 
@@ -191,14 +195,20 @@ For example:
 See how `marginTop` isn't specified anywhere in our interface.
 
 But it's part of [Chakra UI's BoxProps type](https://chakra-ui.com/docs/components/box), allowing our custom components flexibility over styling and state.
+	
+##### TESTING
 
 **»** The `data-testid='MyTable'` allows us to reference our component in tests.
 
 This is useful if there aren't any easy ways to get a component using default assertions (rare).
 
+##### REFS
+
 **»** The `ref={ref)` tells the `forwardRef` function on which component to spread the props.
 
 This matters because we can pass `ref` to a lower-level component if we want to enforce higher-level styling or state, disallowing the use of any additional props at the highest level for that specific custom component.
+
+##### PROPS
 
 **»** The `props` object cleans the code up rather than duplicating our interface.
 
