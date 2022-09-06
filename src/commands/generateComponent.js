@@ -9,22 +9,13 @@ function initGenerateComponentCommand(args, cliConfigFile, program) {
 
 	const componentCommand = program
 		.command('component [names...]')
-		.alias('c')
-
-		// Static component command option defaults.
+		.alias('cm')
 
 		.option(
 			'-p, --path <path>',
 			'The path where the component will get generated in.',
 			`${selectedComponentType.path}`
 		)
-		.option(
-			'--type <type>',
-			'You can pass a component type that you have configured in your GRC config file.',
-			'default'
-		)
-
-	// Dynamic component command option defaults.
 
 	const dynamicOptions = getCorrespondingComponentFileTypes(
 		selectedComponentType
@@ -37,8 +28,6 @@ function initGenerateComponentCommand(args, cliConfigFile, program) {
 			selectedComponentType[dynamicOption]
 		)
 	})
-
-	// Component command action.
 
 	componentCommand.action((componentNames, cmd) =>
 		componentNames.forEach((componentName) =>

@@ -8,14 +8,12 @@ module.exports = async function cli(args) {
 
 	initGenerateComponentCommand(
 		args,
-		// Config file is hardcoded for now
 		{
 			usesTypeScript: true,
 			cssPreprocessor: 'scss',
 			component: {
 				default: {
 					path: 'cli',
-					withStyle: false,
 					withTest: true
 				}
 			}
