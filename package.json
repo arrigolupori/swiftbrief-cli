@@ -1,6 +1,6 @@
 {
 	"name": "@swiftbriefapp/cli",
-	"version": "1.2.2",
+	"version": "1.2.3",
 	"description": "Swiftbrief's official CLI package.",
 	"author": "Arrigo Lupori",
 	"homepage": "https://www.swiftbrief.com",
