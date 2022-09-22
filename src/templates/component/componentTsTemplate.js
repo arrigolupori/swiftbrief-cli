@@ -13,4 +13,9 @@ export const TemplateName = forwardRef<TemplateNameProps, 'div'>(
 			</Box>
 		)
 	}
-)`
+)
+
+MagicLinkForm.defaultProps = {
+	spacing: 3,
+	backgroundColor: 'green'
+} as TemplateNameProps`

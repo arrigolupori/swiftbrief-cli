@@ -1,11 +1,21 @@
 module.exports = `import nc from 'next-connect'
 import { onError } from 'server/middleware'
-import { NextApiRequest, NextApiResponse } from 'next'
 import { readTemplateName, createTemplateName } from 'server/controllers'
+import { withValidation } from 'next-validations'
+import { methodNotAllowed } from 'server/utils'
+import { helloSchema } from 'types/schema'
 
-const handler = nc<NextApiRequest, NextApiResponse>({ onError })
+const validate = withValidation({
+	schema: templateNameSchema,
+	type: 'Yup',
+	mode: 'body'
+})
+
+const handler = nc({ onError })
+
 handler.get(readTemplateName)
-handler.post(createTemplateName)
+handler.post(validate(), createTemplateName)
+handler.all(methodNotAllowed)
 
 export default handler
 `
